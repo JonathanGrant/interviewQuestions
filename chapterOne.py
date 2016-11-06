@@ -50,6 +50,7 @@ def reverseWordsInString(myStr):
 		myStr = myStr + wordStack.pop() + ' '
 	return myStr
 
+## O(n) time, O(1) space
 def validNumber(myNumStr):
 	stage = 0
 	hadDecimalPoint = False
@@ -70,4 +71,18 @@ def validNumber(myNumStr):
 			if not char is ' ':
 				return False
 	return True
-print validNumber('dasf5.02')
+
+def lengthOfLongestSubstring(myStr):
+	charMap = []
+	for i in range(0, 256):
+		charMap.append(-1)
+	i = 0
+	maxLen = 0
+	for j in range(0, len(myStr)):
+		if charMap[ord(myStr[j])] >= i:
+			i = charMap[ord(myStr[j])] + 1
+		charMap[ord(myStr[j])] = j
+		maxLen = max(j-i + 1, maxLen)
+	return maxLen
+
+print lengthOfLongestSubstring('dasfs5.02')
