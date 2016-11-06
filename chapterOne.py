@@ -27,6 +27,7 @@ def sortedTwoSum(numArray, targetNum):
 			indexTwo = len(numArray) - 1
 	return -1, -1
 
+##  O(n) runtime, O(1) space
 def validPalindrome(myStr):
 	simpleStr = ''.join(myStr.lower().split())
 	indexOne = 0
@@ -38,4 +39,8 @@ def validPalindrome(myStr):
 		indexTwo -= 1
 	return True
 
-print validPalindrome('not a valid palindrome')
+def strstr(needle,haystack):
+	return haystack.find(needle)
+
+print strstr('valid', 'not a valid palindrome')
+print strstr('needle', 'not a valid palindrome')
