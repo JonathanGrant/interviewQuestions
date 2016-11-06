@@ -42,5 +42,11 @@ def validPalindrome(myStr):
 def strstr(needle,haystack):
 	return haystack.find(needle)
 
-print strstr('valid', 'not a valid palindrome')
-print strstr('needle', 'not a valid palindrome')
+def reverseWordsInString(myStr):
+	wordStack = myStr.split()
+	newStr = ""
+	for word in range(0, len(wordStack)):
+		newStr = newStr + wordStack.pop() + ' '
+	return newStr
+
+print reverseWordsInString('not a valid palindrome')
