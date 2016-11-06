@@ -50,4 +50,24 @@ def reverseWordsInString(myStr):
 		myStr = myStr + wordStack.pop() + ' '
 	return myStr
 
-print reverseWordsInString('not a valid palindrome')
+def validNumber(myNumStr):
+	stage = 0
+	hadDecimalPoint = False
+	for char in myNumStr:
+		if stage == 0:
+			if not char is ' ':
+				stage = 1
+		if stage == 1:
+			if not char in ['+', '-']:
+				stage = 2
+		if stage == 2:
+			if not char in ['0', '1', '2', '3', '4', '5' ,'6', '7', '8', '9']:
+				if (not hadDecimalPoint) and char is '.':
+					hadDecimalPoint = True
+				else:
+					stage = 3
+		if stage == 3:
+			if not char is ' ':
+				return False
+	return True
+print validNumber('dasf5.02')
