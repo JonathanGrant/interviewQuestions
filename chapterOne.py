@@ -72,6 +72,7 @@ def validNumber(myNumStr):
 				return False
 	return True
 
+## O(n) time, O(1) space
 def lengthOfLongestSubstring(myStr):
 	charMap = []
 	for i in range(0, 256):
