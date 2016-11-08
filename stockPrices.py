@@ -1,3 +1,4 @@
+## O(n) time, O(1) space
 def getMaxStockSale(stockPrices):
 	if len(stockPrices) < 2:
 		return 0
