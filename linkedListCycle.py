@@ -15,7 +15,7 @@ def hasCycle(node):
 		while node.getNext():
 			if id(node) in hashMap:
 				return True
-			hashMap[id(node)] = 1
+			hashMap[id(node)] = True
 			node = node.getNext()
 	return False
 
