@@ -114,10 +114,78 @@ def countIslands(arr, m, n):
 				convertIsland(arr, m, n, x, y)
 	return total
 
-myMap = [
-[0, 0, 0, 1, 1],
-[0, 1, 0, 0, 0],
-[0, 0, 0, 1, 0],
-[1, 1, 0, 1, 0],
-[1, 1, 0, 1, 0]]
-print countIslands(myMap, 5, 5)
+def mergeTwoSortedArrays(arr1, arr2):
+	lenArr1 = len(arr1)
+	lenArr2 = len(arr2)
+	i = 0
+	j = 0
+	while j < lenArr2 and i < len(arr1):
+		if arr1[i] < arr2[j]:
+			i += 1
+		else:
+			arr1.insert(i, arr2[j])
+			j += 1
+	if len(arr1) < lenArr1 + lenArr2:
+		while j < lenArr2:
+			arr1.append(arr2[j])
+			j += 1
+	return arr1
+
+def sortFromOrder(order, string):
+	orderList = [0] * 26
+	# Assuming all lowercase letters
+	for char in string:
+		orderList[ord(char) - 97] += 1
+	realStringArr = []
+	for char in order:
+		realStringArr.extend([char] * orderList[ord(char) - 97])
+	return ''.join(realStringArr)
+
+def twoSum(arr, theSum):
+	arr.sort()
+	low = 0
+	high = len(arr) - 1
+	while low < high:
+		tempSum = arr[low] + arr[high]
+		if tempSum == theSum:
+			return arr[low], arr[high]
+		elif tempSum > theSum:
+			high -= 1
+		else:
+			low += 1
+	return 'Cannot find the sum'
+
+def isPalin(myStr):
+	start = 0
+	lenStr = len(myStr)
+	end = lenStr - 1
+	while start < end:
+		while start < lenStr - 1 and not myStr[start].isalpha():
+			start += 1
+		while end > 0 and not myStr[end].isalpha():
+			end -= 1
+		if start > end:
+			return True
+		elif myStr[start].lower() != myStr[end].lower():
+			return False
+		start += 1
+		end -= 1
+	return True
+
+def printAllOrders(decided, undecided):
+	if len(undecided) == 1:
+		print ' '.join(decided + undecided)
+	else:
+		for i in range(0, len(undecided)):
+			printAllOrders(decided + [undecided[i]], [x for x in undecided if x != undecided[i]])
+
+def printAllOrdersNSelections(decided, undecided, numSelections):
+	if len(decided) == numSelections - 1 or len(undecided) == 1:
+		mainStr = ' '.join(decided)
+		for num in undecided:
+			print mainStr + ' ' + str(num)
+	else:
+		for i in range(0, len(undecided)):
+			printAllOrdersNSelections(decided + [undecided[i]], [x for x in undecided if x != undecided[i]], numSelections)
+
+printAllOrdersNSelections([], ['3', '5', '7', '9'], 2)
