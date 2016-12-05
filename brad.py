@@ -188,4 +188,61 @@ def printAllOrdersNSelections(decided, undecided, numSelections):
 		for i in range(0, len(undecided)):
 			printAllOrdersNSelections(decided + [undecided[i]], [x for x in undecided if x != undecided[i]], numSelections)
 
-printAllOrdersNSelections([], ['3', '5', '7', '9'], 2)
+def containsCrossWord(puzzle, m, n, word):
+	for i in range(0, m):
+		for j in range(0, n):
+			if puzzle[i][j] == word[0]:
+				if crossHelper(puzzle, m, n, i, j, word, 1):
+					return True
+	return False
+
+def crossHelper(puzzle, m, n, i, j, word, a):
+	if a == len(word):
+		return True
+	dirs = [[1, 0], [1, 1], [1, -1], [0, 1], [0, -1], [-1, -1], [-1, 0], [-1, 1]]
+	for myDir in dirs:
+		y = i + myDir[0]
+		x = j + myDir[1]
+		if y < 0 or y >= m:
+			continue
+		if x < 0 or x >= n:
+			continue
+		if puzzle[y][x] == word[a]:
+			if crossHelper(puzzle, m, n, y, x, word, a + 1):
+				return True
+	return False
+
+class Node:
+	def __init__(self, value):
+		self.value = value
+		self.next = None
+
+def bestValue(items, weight):
+	valueMap = {}
+	for item in items:
+		myItem = Node(item[1])
+		if item[0] in valueMap:
+			node = valueMap[item[0]]
+			prev = None
+			while node.value > item[1] and node.next:
+				prev = node
+				node = node.next
+			if prev:
+				prev.next = myItem
+			myItem.next = node
+		else:
+			valueMap[item[0]] = myItem
+	total = 0
+	while weight > 0:
+		toCheck = weight
+		while toCheck > 0 and not (toCheck in valueMap):
+			toCheck -= 1
+		if toCheck <= 0:
+			return total
+		total += valueMap[toCheck].value
+		weight -= toCheck
+		if valueMap[toCheck].next:
+			valueMap[toCheck] = valueMap[toCheck].next
+		else:
+			valueMap.pop(toCheck, None)
+	return total
