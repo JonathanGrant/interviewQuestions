@@ -218,31 +218,24 @@ class Node:
 		self.next = None
 
 def bestValue(items, weight):
-	valueMap = {}
-	for item in items:
-		myItem = Node(item[1])
-		if item[0] in valueMap:
-			node = valueMap[item[0]]
-			prev = None
-			while node.value > item[1] and node.next:
-				prev = node
-				node = node.next
-			if prev:
-				prev.next = myItem
-			myItem.next = node
-		else:
-			valueMap[item[0]] = myItem
 	total = 0
 	while weight > 0:
-		toCheck = weight
-		while toCheck > 0 and not (toCheck in valueMap):
-			toCheck -= 1
-		if toCheck <= 0:
-			return total
-		total += valueMap[toCheck].value
-		weight -= toCheck
-		if valueMap[toCheck].next:
-			valueMap[toCheck] = valueMap[toCheck].next
+		maxItem = None
+		v = 0
+		w = 1
+		for item in items:
+			if item[0] <= weight:
+				if item[1] / item[0] >= v / w:
+					w = item[0]
+					v = item[1]
+					maxItem = item
+		if maxItem:
+			weight -= w
+			total += v
+			items.remove(maxItem)
 		else:
-			valueMap.pop(toCheck, None)
+			break
 	return total
+
+items = [[1, 10], [5, 10], [2, 3], [3, 4]]
+print bestValue(items, 5)
