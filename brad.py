@@ -253,3 +253,9 @@ def PrintDiaganol(arr, m, n):
 			l += 1
 			r -= 1
 
+def PrintAllBinaries(n, arr = []):
+	if n <= 0:
+		print ''.join(arr)
+	else:
+		PrintAllBinaries(n - 1, arr + ['0'])
+		PrintAllBinaries(n - 1, arr + ['1'])
