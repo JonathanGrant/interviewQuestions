@@ -237,5 +237,19 @@ def bestValue(items, weight):
 			break
 	return total
 
-items = [[1, 10], [5, 10], [2, 3], [3, 4]]
-print bestValue(items, 5)
+def PrintDiaganol(arr, m, n):
+	for a in range(0, m):
+		l = 0
+		r = a
+		while l < n and r >= 0:
+			print arr[l][r]
+			l += 1
+			r -= 1
+	for b in range(1, n):
+		l = b
+		r = m - 1
+		while l < n and r >= 0:
+			print arr[l][r]
+			l += 1
+			r -= 1
+
