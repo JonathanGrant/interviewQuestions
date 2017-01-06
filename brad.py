@@ -259,3 +259,78 @@ def PrintAllBinaries(n, arr = []):
 	else:
 		PrintAllBinaries(n - 1, arr + ['0'])
 		PrintAllBinaries(n - 1, arr + ['1'])
+
+def aInB(A, B):
+	lenA = len(A)
+	if lenA == 0:
+		return "YES"
+	lenB = len(B)
+	if lenB < lenA:
+		return "NO"
+	aPreQ = 0
+	for a in A:
+		if a != "?":
+			break
+		aPreQ += 1
+	if aPreQ == lenA:
+		return "YES"
+	for i in range(aPreQ, lenB):
+		a = aPreQ
+		b = i
+		while A[a] == B[b] or A[a] == "?" or B[b] == "?":
+			a += 1
+			b += 1
+			if a == lenA:
+				return "YES"
+			elif b == lenB:
+				return "NO"
+	return "NO"
+
+def addStrings(A, B):
+	lenA = len(A)
+	lenB = len(B)
+	Sum = []
+	carry = 0
+	a = lenA - 1
+	b = lenB - 1
+	while a >= 0 and b >= 0:
+		numA = int(A[a])
+		numB = int(B[b])
+		total = numA + numB + carry
+		if total > 9:
+			carry = 1
+			total = total % 10
+		else:
+			carry = 0
+		Sum = [str(total)] + Sum
+		a -= 1
+		b -= 1
+	remains = []
+	rI = 0
+	if a > b:
+		remains = A
+		rI = a
+	elif b > a:
+		remains = B
+		rI = b
+	while rI >= 0:
+		num = int(remains[rI])
+		total = num + carry
+		if total > 9:
+			carry = 1
+			total = total % 10
+		else:
+			carry = 0
+		Sum = [str(total)] + Sum
+		rI -= 1
+	return ''.join(Sum)
+
+A = "4998542385355743131243"
+B = "111111111111111111111"
+print ("5109653495466854242354")
+print addStrings(A,B)
+
+
+
+
+
